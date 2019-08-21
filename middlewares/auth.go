@@ -10,32 +10,32 @@ import (
 )
 
 func CurrentUser() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		session := sessions.Default(c)
+	return func(context *gin.Context) {
+		session := sessions.Default(context)
 		uid := session.Get("user_id")
 		if uid != nil {
 			user, err := models.GetUserById(uid)
 			if err == nil {
-				c.Set("user", &user)
+				context.Set("user", &user)
 			}
 		}
-		c.Next()
+		context.Next()
 	}
 }
 
 func AuthRequired() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if user, _ := c.Get("user"); user != nil {
+	return func(context *gin.Context) {
+		if user, _ := context.Get("user"); user != nil {
 			if _, ok := user.(*models.User); ok {
-				c.Next()
+				context.Next()
 				return
 			}
 		}
 
-		c.JSON(http.StatusUnauthorized, serializer.Response{
+		context.JSON(http.StatusUnauthorized, serializer.Response{
 			Code:    http.StatusUnauthorized,
-			Message: "需要登录.",
+			Message: "您还没有登录.",
 		})
-		c.Abort()
+		context.Abort()
 	}
 }
