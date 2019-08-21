@@ -46,6 +46,10 @@ func GetUserById(ID interface{}) (*User, error) {
 	return &user, nil
 }
 
+func UpdateUserProfile() error {
+	return nil
+}
+
 func (user *User) SetPassword(password string) error {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), PasswordCost)
 	if err != nil {
