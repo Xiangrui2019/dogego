@@ -17,8 +17,6 @@ func ConnectDatabase(connectionDSN string) {
 		log.Fatal(err)
 	}
 
-	db.LogMode(true)
-
 	// 连接池设置
 	//空闲
 	db.DB().SetMaxIdleConns(20)
