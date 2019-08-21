@@ -46,7 +46,13 @@ func GetUserById(ID interface{}) (*User, error) {
 	return &user, nil
 }
 
-func UpdateUserProfile() error {
+func UpdateUserProfile(user *User) error {
+	err := DB.Save(&user).Error
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
