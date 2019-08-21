@@ -33,8 +33,8 @@ func AuthRequired() gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusUnauthorized, serializer.Response{
-			Status: http.StatusUnauthorized,
-			Msg:    "需要登录",
+			Code:    http.StatusUnauthorized,
+			Message: "需要登录.",
 		})
 		c.Abort()
 	}
