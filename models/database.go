@@ -29,5 +29,9 @@ func ConnectDatabase(connectionDSN string) {
 
 	DB = db
 
-	MigrationModels()
+	err = MigrationModels()
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
