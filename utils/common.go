@@ -1,11 +1,16 @@
 package utils
 
 import (
+	"dogego/serializer"
+	"encoding/json"
+	"fmt"
 	"math/rand"
+	"net/http"
 	"time"
+
+	"gopkg.in/go-playground/validator.v8"
 )
 
-// RandStringRunes 返回随机字符串
 func RandStringRunes(n int) string {
 	var letterRunes = []rune("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
@@ -15,4 +20,31 @@ func RandStringRunes(n int) string {
 		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
 	return string(b)
+}
+
+func BuildErrorResponse(err error) serializer.Response {
+	if ve, ok := err.(validator.ValidationErrors); ok {
+		for _, e := range ve {
+			field := fmt.Sprintf("Field.%s", e.Field)
+			tag := fmt.Sprintf("Tag.Valid.%s", e.Tag)
+			return serializer.Response{
+				Status: http.StatusBadRequest,
+				Msg:    fmt.Sprintf("%s%s", field, tag),
+				Error:  fmt.Sprint(err),
+			}
+		}
+	}
+	if _, ok := err.(*json.UnmarshalTypeError); ok {
+		return serializer.Response{
+			Status: http.StatusBadRequest,
+			Msg:    "JSON类型不匹配",
+			Error:  fmt.Sprint(err),
+		}
+	}
+
+	return serializer.Response{
+		Status: http.StatusBadRequest,
+		Msg:    "参数错误",
+		Error:  fmt.Sprint(err),
+	}
 }
