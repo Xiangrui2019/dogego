@@ -1,6 +1,7 @@
 package conf
 
 import (
+	"dogego/cache"
 	"dogego/models"
 	"os"
 
@@ -11,4 +12,5 @@ func init() {
 	godotenv.Load()
 
 	models.ConnectDatabase(os.Getenv("DATABASE_DSN"))
+	cache.ConnectRedisCache()
 }
