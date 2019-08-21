@@ -2,6 +2,8 @@ package middlewares
 
 import (
 	"dogego/models"
+	"dogego/serializer"
+	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -18,5 +20,22 @@ func CurrentUser() gin.HandlerFunc {
 			}
 		}
 		c.Next()
+	}
+}
+
+func AuthRequired() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		if user, _ := c.Get("user"); user != nil {
+			if _, ok := user.(*models.User); ok {
+				c.Next()
+				return
+			}
+		}
+
+		c.JSON(http.StatusUnauthorized, serializer.Response{
+			Status: http.StatusUnauthorized,
+			Msg:    "需要登录",
+		})
+		c.Abort()
 	}
 }
