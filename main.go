@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "dogego/conf"
 	"dogego/routers"
 	"log"
 	"net/http"
