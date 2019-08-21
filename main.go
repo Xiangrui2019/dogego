@@ -16,6 +16,7 @@ func main() {
 		Handler: router,
 	}
 
+	log.Printf("Server started on %s", os.Getenv("ADDR"))
 	err := httpServer.ListenAndServe()
 
 	if err != nil {
