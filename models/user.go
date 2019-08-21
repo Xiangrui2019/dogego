@@ -21,3 +21,14 @@ const (
 	// Suspend 被封禁用户
 	Suspend string = "suspend"
 )
+
+func GetUserById(ID interface{}) (*User, error) {
+	var user User
+
+	err := DB.First(&user, ID).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
+}
