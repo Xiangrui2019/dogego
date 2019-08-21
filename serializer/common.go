@@ -3,8 +3,8 @@ package serializer
 // Response 团队基础序列化器
 type Response struct {
 	Code    int         `json:"code"`
-	Data    interface{} `json:"data"`
 	Message string      `json:"message"`
+	Data    interface{} `json:"data"`
 	Error   string      `json:"error"`
 }
 
