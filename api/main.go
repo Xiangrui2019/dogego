@@ -1,7 +1,15 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"dogego/serializer"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 func Ping(context *gin.Context) {
-
+	context.JSON(http.StatusOK, &serializer.Response{
+		Code:    http.StatusOK,
+		Message: "Pong",
+	})
 }

@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"dogego/api"
 	"dogego/middlewares"
 	"os"
 
@@ -17,7 +18,7 @@ func NewRouter() *gin.Engine {
 
 	v1 := router.Group("/api/v1")
 	{
-		v1.Any("/ping", nil)
+		v1.Any("/ping", api.Ping)
 
 		auth := v1.Use(middlewares.AuthRequired())
 		{
