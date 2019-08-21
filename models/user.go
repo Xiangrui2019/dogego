@@ -25,6 +25,16 @@ const (
 	Suspend string = "suspend"
 )
 
+func RegisterUser(user *User) error {
+	err := DB.Create(&user).Error
+
+	if err != nil {
+		return nil
+	}
+
+	return err
+}
+
 func GetUserById(ID interface{}) (*User, error) {
 	var user User
 
