@@ -31,6 +31,14 @@ func UserMe(context *gin.Context) {
 
 }
 
+func UserUpdateProfile(context *gin.Context) {
+
+}
+
+func UserChangePassword(context *gin.Context) {
+
+}
+
 func UserLogout(context *gin.Context) {
 
 }
