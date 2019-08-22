@@ -24,7 +24,7 @@ func NewRouter() *gin.Engine {
 
 		auth := v1.Use(middlewares.AuthRequired())
 		{
-			auth.POST("/user/change_password", api.UserChangePassword)
+			auth.PUT("/user/change_password", api.UserChangePassword)
 			auth.GET("/user/me", api.UserMe)
 		}
 	}
