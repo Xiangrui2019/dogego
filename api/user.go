@@ -58,11 +58,11 @@ func UserChangePassword(context *gin.Context) {
 	user := utils.CurrentUser(context)
 
 	if err := context.ShouldBind(&service); err == nil {
-		service.Change(user)
+		res := service.Change(user)
 		session := sessions.Default(context)
 		session.Clear()
 		session.Save()
-		context.JSON(http.StatusOK, err)
+		context.JSON(http.StatusOK, res)
 	} else {
 		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
 	}
