@@ -19,7 +19,7 @@ type UserResponse struct {
 }
 
 // BuildUser 序列化用户
-func BuildUser(user models.User) User {
+func BuildUser(user *models.User) User {
 	return User{
 		ID:          user.ID,
 		PhoneNumber: user.PhoneNumber,
@@ -32,7 +32,7 @@ func BuildUser(user models.User) User {
 }
 
 // BuildUserResponse 序列化用户响应
-func BuildUserResponse(user models.User) *UserResponse {
+func BuildUserResponse(user *models.User) *UserResponse {
 	return &UserResponse{
 		Data: BuildUser(user),
 	}

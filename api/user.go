@@ -1,6 +1,7 @@
 package api
 
 import (
+	"dogego/serializer"
 	"dogego/services"
 	"dogego/utils"
 	"net/http"
@@ -15,7 +16,7 @@ func UserRegister(context *gin.Context) {
 		if user, err := service.Register(); err != nil {
 			context.JSON(http.StatusInternalServerError, err)
 		} else {
-			context.JSON(http.StatusOK, user)
+			context.JSON(http.StatusOK, serializer.BuildUserResponse(&user))
 		}
 	} else {
 		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
