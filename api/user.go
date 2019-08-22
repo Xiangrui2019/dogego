@@ -44,7 +44,9 @@ func UserLogin(context *gin.Context) {
 }
 
 func UserMe(context *gin.Context) {
+	user := utils.CurrentUser(context)
 
+	context.JSON(http.StatusOK, serializer.BuildUserResponse(user))
 }
 
 func UserUpdateProfile(context *gin.Context) {
