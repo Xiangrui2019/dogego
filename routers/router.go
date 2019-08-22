@@ -25,7 +25,7 @@ func NewRouter() *gin.Engine {
 		authed := v1.Use(middlewares.AuthRequired())
 		{
 			authed.PUT("/user/change_password", api.UserChangePassword)
-			authed.PUT("/usr/update_profile", api.UserUpdateProfile)
+			authed.PUT("/user/update_profile", api.UserUpdateProfile)
 			authed.GET("/user/me", api.UserMe)
 		}
 	}
