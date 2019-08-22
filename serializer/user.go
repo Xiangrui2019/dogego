@@ -1,6 +1,9 @@
 package serializer
 
-import "dogego/models"
+import (
+	"dogego/models"
+	"net/http"
+)
 
 type User struct {
 	ID          uint   `json:"id"`
@@ -10,12 +13,6 @@ type User struct {
 	Status      string `json:"status"`
 	Avatar      string `json:"avatar"`
 	CreatedAt   int64  `json:"created_at"`
-}
-
-// UserResponse 单个用户序列化
-type UserResponse struct {
-	Response
-	Data User `json:"data"`
 }
 
 // BuildUser 序列化用户
@@ -32,8 +29,10 @@ func BuildUser(user *models.User) User {
 }
 
 // BuildUserResponse 序列化用户响应
-func BuildUserResponse(user *models.User) *UserResponse {
-	return &UserResponse{
-		Data: BuildUser(user),
+func BuildUserResponse(user *models.User) *Response {
+	return &Response{
+		Code:    http.StatusOK,
+		Message: "序列化用户成功.",
+		Data:    BuildUser(user),
 	}
 }

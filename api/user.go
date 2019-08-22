@@ -6,6 +6,7 @@ import (
 	"dogego/utils"
 	"net/http"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,7 +25,24 @@ func UserRegister(context *gin.Context) {
 }
 
 func UserLogin(context *gin.Context) {
+	service := services.UserLoginService{}
 
+	if err := context.ShouldBind(&service); err == nil {
+		if user, err := service.Login(); err != nil {
+			context.JSON(http.StatusBadRequest, err)
+		} else {
+			session := sessions.Default(context)
+			session.Clear()
+			session.Set("user_id", user.ID)
+			session.Save()
+
+			res := serializer.BuildUserResponse(&user)
+
+			context.JSON(http.StatusOK, res)
+		}
+	} else {
+		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
+	}
 }
 
 func UserMe(context *gin.Context) {
