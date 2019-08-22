@@ -50,7 +50,14 @@ func UserMe(context *gin.Context) {
 }
 
 func UserUpdateProfile(context *gin.Context) {
+	service := services.UpdateProfileService{}
+	user := utils.CurrentUser(context)
 
+	if err := context.ShouldBind(&service); err == nil {
+		res := service.Update(user)
+
+		context.JSON()
+	}
 }
 
 func UserChangePassword(context *gin.Context) {
@@ -62,7 +69,7 @@ func UserChangePassword(context *gin.Context) {
 		session := sessions.Default(context)
 		session.Clear()
 		session.Save()
-		context.JSON(http.StatusOK, res)
+		context.JSON(res.Code, res)
 	} else {
 		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
 	}
