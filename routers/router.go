@@ -18,7 +18,7 @@ func NewRouter() *gin.Engine {
 
 	v1 := router.Group("/api/v1")
 	{
-		v1.Any("/ping", api.Ping)
+		v1.POST("/ping", api.Ping)
 		v1.POST("/user/register", api.UserRegister)
 
 		auth := v1.Use(middlewares.AuthRequired())
