@@ -7,14 +7,22 @@ import (
 )
 
 type UpdateProfileService struct {
-	NickName string `form:"nick_name" json:"nick_name" binding:"required,min=2,max=100"`
+	NickName string `form:"nick_name" json:"nick_name"`
 	Bio      string `form:"bio" json:"bio"`
 	Avatar   string `form:"avatar" json:"avatar"`
 }
 
 func (service *UpdateProfileService) Update(user *models.User) *serializer.Response {
 	if service.Bio == "" {
-		service.Bio = "这个人很懒, 什么都没写...."
+		service.Bio = user.Bio
+	}
+
+	if service.NickName == "" {
+		service.NickName = user.NickName
+	}
+
+	if service.Avatar == "" {
+		service.Avatar = user.Avatar
 	}
 
 	user.NickName = service.NickName
