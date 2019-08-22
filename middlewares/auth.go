@@ -16,7 +16,7 @@ func CurrentUser() gin.HandlerFunc {
 		if uid != nil {
 			user, err := models.GetUserById(uid)
 			if err == nil {
-				context.Set("user", &user)
+				context.Set("user", user)
 			}
 		}
 		context.Next()
