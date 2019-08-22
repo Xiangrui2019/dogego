@@ -56,7 +56,9 @@ func UserUpdateProfile(context *gin.Context) {
 	if err := context.ShouldBind(&service); err == nil {
 		res := service.Update(user)
 
-		context.JSON()
+		context.JSON(res.Code, res)
+	} else {
+		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
 	}
 }
 

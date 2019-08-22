@@ -22,10 +22,11 @@ func NewRouter() *gin.Engine {
 		v1.POST("/user/register", api.UserRegister)
 		v1.POST("/user/login", api.UserLogin)
 
-		auth := v1.Use(middlewares.AuthRequired())
+		authed := v1.Use(middlewares.AuthRequired())
 		{
-			auth.PUT("/user/change_password", api.UserChangePassword)
-			auth.GET("/user/me", api.UserMe)
+			authed.PUT("/user/change_password", api.UserChangePassword)
+			authed.PUT("/usr/update_profile", api.UserUpdateProfile)
+			authed.GET("/user/me", api.UserMe)
 		}
 	}
 
