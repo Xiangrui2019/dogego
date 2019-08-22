@@ -54,7 +54,22 @@ func UserUpdateProfile(context *gin.Context) {
 }
 
 func UserChangePassword(context *gin.Context) {
+	service := services.ChangePasswordService{}
+	user := utils.CurrentUser(context)
 
+	if err := context.ShouldBind(&service); err == nil {
+		if err := service.Change(user); err != nil {
+			context.JSON(http.StatusInternalServerError, err)
+		} else {
+			session := sessions.Default(context)
+			session.Clear()
+			session.Save()
+
+			context.JSON(http.StatusOK, err)
+		}
+	} else {
+		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
+	}
 }
 
 func UserLogout(context *gin.Context) {
