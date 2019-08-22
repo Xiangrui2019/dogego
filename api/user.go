@@ -36,9 +36,7 @@ func UserLogin(context *gin.Context) {
 			session.Set("user_id", user.ID)
 			session.Save()
 
-			res := serializer.BuildUserResponse(&user)
-
-			context.JSON(http.StatusOK, res)
+			context.JSON(http.StatusOK, serializer.BuildUserResponse(&user))
 		}
 	} else {
 		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
