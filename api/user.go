@@ -15,7 +15,7 @@ func UserRegister(context *gin.Context) {
 
 	if err := context.ShouldBind(&service); err == nil {
 		if user, err := service.Register(); err != nil {
-			context.JSON(http.StatusInternalServerError, err)
+			context.JSON(err.Code, err)
 		} else {
 			context.JSON(http.StatusOK, serializer.BuildUserResponse(&user))
 		}
@@ -29,7 +29,7 @@ func UserLogin(context *gin.Context) {
 
 	if err := context.ShouldBind(&service); err == nil {
 		if user, err := service.Login(); err != nil {
-			context.JSON(http.StatusBadRequest, err)
+			context.JSON(err.Code, err)
 		} else {
 			session := sessions.Default(context)
 			session.Clear()
