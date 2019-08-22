@@ -31,5 +31,25 @@ func (service *ChangePasswordService) Valid(user *models.User) *serializer.Respo
 }
 
 func (service *ChangePasswordService) Change(user *models.User) *serializer.Response {
+	if err := service.Valid(user); err != nil {
+		return err
+	}
 
+	if err := user.SetPassword(service.Password); err != nil {
+		return &serializer.Response{
+			Code:    http.StatusInternalServerError,
+			Message: "加密密码失败",
+			Error:   err.Error(),
+		}
+	}
+
+	if err := models.DB.Save(user).Error; err != nil {
+		return &serializer.Response{
+			Code:    http.StatusInternalServerError,
+			Message: "保存密码失败",
+			Error:   err.Error(),
+		}
+	}
+
+	return serializer.BuildUserResponse(user)
 }
