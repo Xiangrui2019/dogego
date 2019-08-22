@@ -7,9 +7,9 @@ import (
 )
 
 type ChangePasswordService struct {
-	OldPassword     string `form:"old_password" json:"old_password" binding:"required,min=8,max=40"`
-	Password        string `form:"password" json:"password" binding:"required,min=8,max=40"`
-	PasswordConfirm string `form:"password_confirm" json:"password_confirm" binding:"required,min=8,max=40"`
+	OldPassword     string `form:"old_password" json:"old_password" binding:"required,min=2,max=40"`
+	Password        string `form:"password" json:"password" binding:"required,min=2,max=40"`
+	PasswordConfirm string `form:"password_confirm" json:"password_confirm" binding:"required,min=2,max=40"`
 }
 
 func (service *ChangePasswordService) Valid(user *models.User) *serializer.Response {
