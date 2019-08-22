@@ -39,6 +39,6 @@ func (service *UpdateProfileService) Update(user *models.User) *serializer.Respo
 
 	return &serializer.Response{
 		Code:    http.StatusOK,
-		Message: "更新用户信息成功, 请重新登录.",
+		Message: "更新用户信息成功.",
 	}
 }
