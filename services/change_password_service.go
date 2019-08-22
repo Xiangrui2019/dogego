@@ -51,5 +51,8 @@ func (service *ChangePasswordService) Change(user *models.User) *serializer.Resp
 		}
 	}
 
-	return serializer.BuildUserResponse(user)
+	return &serializer.Response{
+		Code: http.StatusOK,
+		Message: "密码更新成功, 请重新登录.",
+	}
 }
