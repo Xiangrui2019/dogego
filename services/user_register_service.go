@@ -42,6 +42,34 @@ func (service *UserRegisterService) Valid() *serializer.Response {
 	return nil
 }
 
-func (service *UserRegisterService) Register() {
+func (service *UserRegisterService) Register() (models.User, *serializer.Response) {
+	user := models.User{
+		PhoneNumber: service.PhoneNumber,
+		NickName:    service.NickName,
+		Bio:         "这个人很懒, 什么都没写....",
+		Status:      models.Active,
+		Avatar:      "",
+	}
 
+	if err := service.Valid(); err != nil {
+		return user, err
+	}
+
+	if err := user.SetPassword(service.Password); err != nil {
+		return user, &serializer.Response{
+			Code:    http.StatusInternalServerError,
+			Message: "设置密码时出错.",
+			Error:   err.Error(),
+		}
+	}
+
+	if err := models.RegisterUser(&user); err != nil {
+		return user, &serializer.Response{
+			Code:    http.StatusInternalServerError,
+			Message: "注册用户时出错.",
+			Error:   err.Error(),
+		}
+	}
+
+	return user, nil
 }
