@@ -30,5 +30,10 @@ func NewRouter() *gin.Engine {
 		}
 	}
 
+	tasks := router.Group("/tasks")
+	{
+		tasks.GET("", nil)
+	}
+
 	return router
 }
