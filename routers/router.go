@@ -4,7 +4,6 @@ import (
 	"dogego/api"
 	"dogego/middlewares"
 	"dogego/utils"
-	"fmt"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -34,7 +33,7 @@ func NewRouter() *gin.Engine {
 
 	tasks := router.Group("/tasks")
 	{
-		tasks.GET("/time", func(context *gin.Context) { utils.RunTask(context, func() error { fmt.Println("dsaf"); return nil }) })
+		tasks.GET("/time", func(context *gin.Context) { utils.RunTask(context, nil) })
 	}
 
 	return router
