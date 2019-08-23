@@ -3,6 +3,7 @@ package routers
 import (
 	"dogego/api"
 	"dogego/middlewares"
+	"dogego/tasks"
 	"dogego/utils"
 	"os"
 
@@ -31,9 +32,9 @@ func NewRouter() *gin.Engine {
 		}
 	}
 
-	tasks := router.Group("/tasks")
+	task := router.Group("/tasks")
 	{
-		tasks.GET("/time", func(context *gin.Context) { utils.RunTask(context, nil) })
+		task.GET("/time", func(context *gin.Context) { utils.RunTask(context, tasks.TimeTask) })
 	}
 
 	return router
