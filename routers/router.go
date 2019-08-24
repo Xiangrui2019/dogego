@@ -29,6 +29,7 @@ func NewRouter() *gin.Engine {
 			authed.PUT("/user/change_password", api.UserChangePassword)
 			authed.PUT("/user/update_profile", api.UserUpdateProfile)
 			authed.GET("/user/me", api.UserMe)
+			authed.POST("/usr/logout", api.UserLogout)
 		}
 	}
 

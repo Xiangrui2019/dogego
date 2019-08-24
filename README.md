@@ -18,3 +18,14 @@
 7. [DogeGo Task](https://github.com/xiangrui2019/dogego_task) 自行实现了分布式定时任务
 8. 本项目使用Redis分布式Session存储登录信息, 默认支持分布式, 无需更换
 
+本项目已经预先实现了一些常用的代码方便参考和复用:
+
+1. 创建了用户模型
+2. 实现了```/api/v1/ping```心跳检查接口
+3. 实现了```/api/v1/user/register```用户注册接口
+4. 实现了```/api/v1/user/login```用户登录接口
+5. 实现了```/api/v1/user/me```用户信息(需要登录后获取session)
+5. 实现了```/api/v1/user/change_password```用户密码修改接口(需要登录后获取session)
+5. 实现了```/api/v1/user/update_profile```用户Profile更新接口(需要登录后获取session)
+5. 实现了```/api/v1/user/logout```用户登出接口(需要登录后获取session)
+6. 实现了```time```定时任务, 配合[DogeGo Task](https://github.com/xiangrui2019/dogego_task)使用
