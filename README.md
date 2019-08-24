@@ -42,4 +42,6 @@
 8. conf放一些静态存放的配置文件
 9. global放Redis全局计数器、排行榜之类的分布式共享资源
 10. modules放需要全局单例使用的模块, 类似于ASP.NetCore的IOC的单例模式
-11. 
+11. routers放路由信息
+12. storage放OSS存储的一些service
+13. tasks放定时任务
