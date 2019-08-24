@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  dogego:
+    image: dogego
+    restart: always
+    environment:
+      - ADDR=:3000
+      - DATABASE_DSN=
+      - CORS_DOMAIN=*
+      - SESSION_SECERT=xzvfdsfsddsfsdsdsfsfdf
+      - REDIS_ADDR=127.0.0.1:6379
+      - REDIS_PASSWORD=
+      - GIN_MODE=debug
+    ports:
+      - 3000:80
