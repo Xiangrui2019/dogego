@@ -29,3 +29,17 @@
 5. 实现了```/api/v1/user/update_profile```用户Profile更新接口(需要登录后获取session)
 5. 实现了```/api/v1/user/logout```用户登出接口(需要登录后获取session)
 6. 实现了```time```定时任务, 配合[DogeGo Task](https://github.com/xiangrui2019/dogego_task)使用
+
+本项目已经预先创建了一系列文件夹划分出下列模块:
+
+1. api文件夹就是MVC框架的controller，负责协调各部件完成任务
+2. models文件夹负责存储数据库模型和数据库操作相关的代码
+3. services负责处理比较复杂的业务，把业务代码模型化可以有效提高业务代码的质量（比如用户注册，充值，下单等）
+4. serializer储存通用的json模型，把models得到的数据库模型转换成api需要的json对象
+5. cache负责redis缓存相关的代码
+6. auth权限控制文件夹
+7. utils一些通用的小工具
+8. conf放一些静态存放的配置文件
+9. global放Redis全局计数器、排行榜之类的分布式共享资源
+10. modules放需要全局单例使用的模块, 类似于ASP.NetCore的IOC的单例模式
+11. 
