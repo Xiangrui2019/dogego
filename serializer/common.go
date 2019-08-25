@@ -11,7 +11,7 @@ type Response struct {
 // DataList 基础列表结构
 type DataList struct {
 	Items interface{} `json:"items"`
-	Total interface{} `json:"total"`
+	Total uint        `json:"total"`
 }
 
 // TrackedErrorResponse 有追踪信息的错误响应
