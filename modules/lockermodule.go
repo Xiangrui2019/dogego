@@ -22,7 +22,7 @@ func (locker *Locker) Lock(lockname string) bool {
 }
 
 func (locker *Locker) Free(lockname string) error {
-	return cache.CacheClient.Del(lockname).Err()
+	return cache.CacheClient.Del(global.LockKey(lockname)).Err()
 }
 
 func InitLockerModule() {
