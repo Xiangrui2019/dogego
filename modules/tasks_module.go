@@ -5,20 +5,30 @@ import (
 	"runtime"
 )
 
+const (
+	TimeJob = iota
+	AsyncJob
+)
+
 type Task struct {
 	Taskname string
+	Type     int
 	Time     string
-	Job      func() error
+	Job      interface{}
 }
+
+type TimeTask func() error
+type AsyncTask func(data interface{}) error
 
 var TasksModule []*Task
 
-func AddJob(time string, job func() error) {
+func AddTimedJob(time string, job TimeTask) {
 	jobName := runtime.FuncForPC(reflect.ValueOf(job).Pointer()).Name()
 	TasksModule = append(TasksModule, &Task{
 		Taskname: jobName,
 		Job:      job,
 		Time:     time,
+		Type:     TimeJob,
 	})
 }
 

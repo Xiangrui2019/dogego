@@ -24,7 +24,8 @@ func StartCronJobs(locked bool) {
 	Cron.AddFunc("@every 1m", ClifeMaster)
 
 	for _, item := range modules.TasksModule {
-		Cron.AddFunc(item.Time, func() {})
+		if item.Type == modules.TimeJob {
+		}
 	}
 
 	fmt.Println("Cron Jobs started success.")

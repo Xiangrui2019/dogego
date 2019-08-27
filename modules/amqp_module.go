@@ -17,4 +17,6 @@ func InitAMQPModule() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	defer AMQPModule.Close()
 }
