@@ -4,4 +4,5 @@ func InitAllModules() {
 	InitAliyunOSSModule()
 	InitLockerModule()
 	InitTaskModule()
+	InitAMQPModule()
 }
