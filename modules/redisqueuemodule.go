@@ -17,7 +17,9 @@ func (queue *RedisQueue) Receive(queuename string,
 	go func() {
 		for {
 			err := queue.messageReceiver()
-			log.Println(err)
+			if err != nil {
+				log.Println(err)
+			}
 		}
 	}()
 }
