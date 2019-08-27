@@ -13,8 +13,6 @@ func BuildChannel() (*amqp.Channel, error) {
 		return nil, err
 	}
 
-	defer ch.Close()
-
 	return ch, nil
 }
 

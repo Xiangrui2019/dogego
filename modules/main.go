@@ -1,7 +1,7 @@
 package modules
 
 func InitAllModules() {
-	InitAliyunOSSModule()
+	//InitAliyunOSSModule()
 	InitLockerModule()
 	InitAMQPModule()
 }

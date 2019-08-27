@@ -3,6 +3,7 @@ package tasks
 import (
 	"dogego/modules"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/robfig/cron"
@@ -27,6 +28,7 @@ func StartCronJobs(locked bool) {
 
 	for _, item := range modules.TasksModule {
 		if item.Type == modules.TimeJob {
+			log.Println(item)
 			Cron.AddFunc(item.Time, func() { PublishTask(item) })
 		}
 	}
