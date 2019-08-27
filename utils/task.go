@@ -13,8 +13,8 @@ func RunTask(job func() error) {
 	to := time.Now().UnixNano()
 	jobName := runtime.FuncForPC(reflect.ValueOf(job).Pointer()).Name()
 	if err != nil {
-		log.Printf("%s 执行失败: %dms\n", jobName, (to-from)/int64(time.Millisecond))
+		log.Printf("%s Execute Error: %dms\n", jobName, (to-from)/int64(time.Millisecond))
 	} else {
-		log.Printf("%s 执行成功: %dms\n", jobName, (to-from)/int64(time.Millisecond))
+		log.Printf("%s Execute Success: %dms\n", jobName, (to-from)/int64(time.Millisecond))
 	}
 }
