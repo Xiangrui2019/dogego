@@ -11,16 +11,10 @@ import (
 func PublishTask(data *modules.Task) error {
 	ch, queue, err := utils.BuildQueueChannel(global.TimeTaskQueueKey())
 
-	err = ch.Publish(
-		"",
-		queue.Name,
-		false,
-		false,
-		amqp.Publishing{
-			ContentType: "text/plain",
-			Body:        []byte(data.Taskname),
-		},
-	)
+	err = utils.Publish(ch, queue, amqp.Publishing{
+		ContentType: "text/plain",
+		Body:        []byte(data.Taskname),
+	})
 
 	if err != nil {
 		return err

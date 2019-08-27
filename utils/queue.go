@@ -50,3 +50,19 @@ func BuildQueueChannel(queue_name string) (*amqp.Channel, *amqp.Queue, error) {
 
 	return ch, queue, nil
 }
+
+func Publish(ch *amqp.Channel, queue *amqp.Queue, publishing amqp.Publishing) error {
+	err := ch.Publish(
+		"",
+		queue.Name,
+		false,
+		false,
+		publishing,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

@@ -25,8 +25,11 @@ func StartCronJobs(locked bool) {
 
 	for _, item := range modules.TasksModule {
 		if item.Type == modules.TimeJob {
+			Cron.AddFunc(item.Time, func() { PublishTask(item) })
 		}
 	}
+
+	Cron.Start()
 
 	fmt.Println("Cron Jobs started success.")
 }
