@@ -14,7 +14,7 @@ func StartCronJobs() {
 		Cron = cron.New()
 	}
 
-	Cron.AddFunc("* 0 0 0 0", func() { utils.RunTask(TimeTask) })
+	Cron.AddFunc("@every 10s", func() { utils.RunTask(TimeTask) })
 	Cron.Start()
 
 	fmt.Println("Cron Jobs started success.")
