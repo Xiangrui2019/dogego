@@ -6,6 +6,7 @@ import (
 )
 
 func TimeTask() error {
+	time.Sleep(time.Second)
 	log.Println(time.Now().Unix())
 	return nil
 }

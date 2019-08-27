@@ -23,6 +23,6 @@ func (queue *RedisQueue) Receive(queuename string,
 }
 
 func (queue *RedisQueue) messageReceiver() error {
-	time.Sleep(time.Duration)
+	time.Sleep(time.Second)
 	return nil
 }
