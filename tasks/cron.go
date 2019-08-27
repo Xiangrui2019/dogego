@@ -2,6 +2,7 @@ package tasks
 
 import (
 	"dogego/utils"
+	"fmt"
 
 	"github.com/robfig/cron"
 )
@@ -14,4 +15,7 @@ func StartCronJobs() {
 	}
 
 	Cron.AddFunc("* 0 0 0 0", func() { utils.RunTask(TimeTask) })
+	Cron.Start()
+
+	fmt.Println("Cron Jobs started success.")
 }
