@@ -8,6 +8,8 @@ import (
 type Locker struct {
 }
 
+var LockerModule *Locker
+
 func (locker *Locker) Lock(lockname string) bool {
 	result, err := cache.CacheClient.SetNX(
 		global.LockKey(lockname), "true", 0).Result()
@@ -21,4 +23,8 @@ func (locker *Locker) Lock(lockname string) bool {
 
 func (locker *Locker) Free(lockname string) error {
 	return cache.CacheClient.Del(lockname).Err()
+}
+
+func InitLockerModule() {
+	LockerModule = new(Locker)
 }
