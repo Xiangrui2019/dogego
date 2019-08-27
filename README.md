@@ -28,7 +28,7 @@
 5. 实现了```/api/v1/user/change_password```用户密码修改接口(需要登录后获取session)
 5. 实现了```/api/v1/user/update_profile```用户Profile更新接口(需要登录后获取session)
 5. 实现了```/api/v1/user/logout```用户登出接口(需要登录后获取session)
-6. 实现了```time```定时任务, 配合[DogeGo Task](https://github.com/xiangrui2019/dogego_task)使用
+6. 实现了```time```定时任务, 可以直接使用，每小时运行一次，作为参考.
 
 本项目已经预先创建了一系列文件夹划分出下列模块:
 
