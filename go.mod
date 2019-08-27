@@ -11,10 +11,8 @@ require (
 	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/jinzhu/gorm v1.9.10
 	github.com/joho/godotenv v1.3.0
-	github.com/qiniu/api.v7 v7.2.5+incompatible
-	github.com/qiniu/x v7.0.8+incompatible // indirect
+	github.com/robfig/cron v1.2.0
 	github.com/satori/go.uuid v1.2.0 // indirect
 	golang.org/x/crypto v0.0.0-20190325154230-a5d413f7728c
 	gopkg.in/go-playground/validator.v8 v8.18.2
-	qiniupkg.com/x v7.0.8+incompatible // indirect
 )

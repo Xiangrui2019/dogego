@@ -5,11 +5,9 @@ import (
 	"reflect"
 	"runtime"
 	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
-func RunTask(context *gin.Context, job func() error) {
+func RunTask(job func() error) {
 	from := time.Now().UnixNano()
 	err := job()
 	to := time.Now().UnixNano()
