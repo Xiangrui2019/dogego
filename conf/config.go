@@ -16,5 +16,5 @@ func init() {
 	models.ConnectDatabase(os.Getenv("DATABASE_DSN"))
 	cache.ConnectRedisCache()
 	modules.InitAllModules()
-	tasks.StartCronJobs()
+	tasks.StartCronJobs(false)
 }
