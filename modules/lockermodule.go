@@ -3,6 +3,7 @@ package modules
 import (
 	"dogego/cache"
 	"dogego/global"
+	"time"
 )
 
 type Locker struct {
@@ -10,9 +11,9 @@ type Locker struct {
 
 var LockerModule *Locker
 
-func (locker *Locker) Lock(lockname string) bool {
+func (locker *Locker) Lock(lockname string, locktime time.Duration) bool {
 	result, err := cache.CacheClient.SetNX(
-		global.LockKey(lockname), "true", 0).Result()
+		global.LockKey(lockname), "true", locktime).Result()
 
 	if err != nil {
 		return false
