@@ -2,6 +2,7 @@ package tasks
 
 import (
 	"dogego/modules"
+	"dogego/utils"
 	"log"
 	"time"
 
@@ -28,7 +29,7 @@ func StartCronJobs(locked bool) {
 	for _, item := range modules.TasksModule {
 		if item.Type == modules.TimeJob {
 			Cron.AddFunc(item.Time, func() {
-				PublishTask(item)
+				utils.PublishTask(item)
 			})
 		}
 	}
