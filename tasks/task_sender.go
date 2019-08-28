@@ -21,7 +21,9 @@ func PublishTask(data *modules.Task) error {
 		Body:         []byte(data.Taskname),
 		DeliveryMode: amqp.Transient,
 	})
-	log.Println("发布任务成功.", data.Taskname, data.Time, data.Job)
+
+	log.Println("Task Publish Success: ", data.Taskname)
+
 	if err != nil {
 		return err
 	}

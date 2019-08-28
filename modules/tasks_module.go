@@ -32,6 +32,15 @@ func AddTimedJob(time string, job TimeTask) {
 	})
 }
 
+func AddAyncJob(job AsyncTask) {
+	jobName := runtime.FuncForPC(reflect.ValueOf(job).Pointer()).Name()
+	TasksModule = append(TasksModule, &Task{
+		Taskname: jobName,
+		Job:      job,
+		Type:     AsyncJob,
+	})
+}
+
 func ClearTimedJob() {
 	TasksModule = *new([]*Task)
 }

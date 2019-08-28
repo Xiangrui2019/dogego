@@ -1,18 +1,32 @@
 package utils
 
 import (
-	"log"
-	"time"
+	"dogego/global"
+	"dogego/modules"
+	"reflect"
+	"runtime"
+
+	"github.com/streadway/amqp"
 )
 
-func RunTask(jobName string, job func() error) {
-	from := time.Now().UnixNano()
-	err := job()
-	to := time.Now().UnixNano()
+func RunAsyncTask(job *modules.AsyncTask, data interface{}) error {
+	ch, queue, err := BuildQueueChannel(global.AsyncTaskQueueKey())
 
 	if err != nil {
-		log.Printf("%s Execute Error: %dms\n", jobName, (to-from)/int64(time.Millisecond))
-	} else {
-		log.Printf("%s Execute Success: %dms\n", jobName, (to-from)/int64(time.Millisecond))
+		return err
 	}
+
+	jobName := runtime.FuncForPC(reflect.ValueOf(job).Pointer()).Name()
+
+	err = Publish(ch, queue, amqp.Publishing{
+		ContentType:  "text/plain",
+		Body:         []byte(global.AsyncTaskData(jobName, data)),
+		DeliveryMode: amqp.Transient,
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
