@@ -2,7 +2,6 @@ package tasks
 
 import (
 	"dogego/modules"
-	"fmt"
 	"log"
 	"time"
 
@@ -14,20 +13,19 @@ var Cron *cron.Cron
 func StartCronJobs(locked bool) {
 	Cron = cron.New()
 
-	RegisterJobs()
+	RegisterTasks()
 
 	if !locked {
 		if !modules.LockerModule.Lock("master", time.Minute*2) {
-			Cron.AddFunc("@every 2m", CampaignMaster)
+			Cron.AddFunc("@every 2m", CampaignMasterTask)
 			Cron.Start()
 			return
 		}
 	}
 
-	Cron.AddFunc("@every 1m", ClifeMaster)
+	Cron.AddFunc("@every 1m", ClifeMasterTask)
 
 	for _, item := range modules.TasksModule {
-		fmt.Println(item)
 		if item.Type == modules.TimeJob {
 			Cron.AddFunc(item.Time, func() {
 				PublishTask(item)

@@ -2,6 +2,7 @@ package conf
 
 import (
 	"dogego/cache"
+	"dogego/executers"
 	"dogego/models"
 	"dogego/modules"
 	"dogego/tasks"
@@ -16,7 +17,7 @@ func init() {
 	models.ConnectDatabase(os.Getenv("DATABASE_DSN"))
 	cache.ConnectRedisCache()
 	modules.InitAllModules()
-	tasks.TaskExcuter()
-	tasks.AsyncExecuter()
+	executers.TaskExcuter()
+	executers.AsyncExecuter()
 	tasks.StartCronJobs(false)
 }

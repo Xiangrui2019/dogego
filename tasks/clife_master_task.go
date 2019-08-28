@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func ClifeMaster() {
+func ClifeMasterTask() {
 	cache.CacheClient.Set(global.LockKey("master"), "true", time.Minute*2)
 	log.Println("Continued life Success.")
 }
