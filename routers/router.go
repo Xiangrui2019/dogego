@@ -12,7 +12,7 @@ func NewRouter() *gin.Engine {
 	router := gin.Default()
 
 	// 中间件, 顺序必须是这样
-	router.Use(middlewares.Session(os.Getenv("SESSION_SECERT")))
+	router.Use(middlewares.Session(os.Getenv("SESSION_SECRET")))
 	router.Use(middlewares.Cors(os.Getenv("CORS_DOMAIN")))
 	router.Use(middlewares.CurrentUser())
 
