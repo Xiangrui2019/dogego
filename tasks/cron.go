@@ -15,8 +15,6 @@ func StartCronJobs(locked bool) {
 	Cron = cron.New()
 
 	RegisterJobs()
-	TaskExcuter()
-	AsyncExecuter()
 
 	if !locked {
 		if !modules.LockerModule.Lock("master", time.Minute*2) {

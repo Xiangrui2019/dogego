@@ -9,7 +9,7 @@ import (
 	"github.com/streadway/amqp"
 )
 
-func RunAsyncTask(job *modules.AsyncTask, data interface{}) error {
+func RunAsyncTask(job modules.AsyncTask, data interface{}) error {
 	ch, queue, err := BuildQueueChannel(global.AsyncTaskQueueKey())
 
 	if err != nil {

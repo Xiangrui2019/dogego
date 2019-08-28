@@ -38,7 +38,7 @@ func AsyncListenExecuter(ch *amqp.Channel, queue *amqp.Queue) error {
 
 func executeAsyncTask(d *amqp.Delivery) {
 	for _, item := range modules.TasksModule {
-		l := strings.Split(string(d.Body), "/")
+		l := strings.Split(string(d.Body), "#$#")
 
 		if item.Taskname == l[0] {
 			var data interface{}
@@ -70,7 +70,7 @@ func executeAsyncTask(d *amqp.Delivery) {
 }
 
 func AsyncExecuter() error {
-	ch, queue, err := utils.BuildQueueChannel(global.TimeTaskQueueKey())
+	ch, queue, err := utils.BuildQueueChannel(global.AsyncTaskQueueKey())
 
 	if err != nil {
 		return err
