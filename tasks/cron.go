@@ -13,7 +13,7 @@ var Cron *cron.Cron
 func StartCronJobs(locked bool) {
 	Cron = cron.New()
 
-	RegisterTasks()
+	RegisterCronTasks()
 
 	if !locked {
 		if !modules.LockerModule.Lock("master", time.Minute*2) {
