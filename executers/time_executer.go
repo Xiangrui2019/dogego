@@ -41,6 +41,10 @@ func executeTask(d *amqp.Delivery) {
 				return
 			}
 
+			if item.Type != modules.TimeJob {
+				return
+			}
+
 			job := item.Job.(modules.TimeTask)
 
 			from := time.Now().UnixNano()

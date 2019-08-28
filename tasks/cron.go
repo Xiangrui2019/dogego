@@ -28,8 +28,9 @@ func StartCronJobs(locked bool) {
 
 	for _, item := range modules.TasksModule {
 		if item.Type == modules.TimeJob {
-			Cron.AddFunc(item.Time, func() {
-				utils.PublishTask(item)
+			d := item
+			Cron.AddFunc(d.Time, func() {
+				utils.PublishTask(d)
 			})
 		}
 	}
