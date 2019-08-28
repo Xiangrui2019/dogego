@@ -17,10 +17,11 @@ func PublishTask(data *modules.Task) error {
 	}
 
 	err = utils.Publish(ch, queue, amqp.Publishing{
-		ContentType: "text/plain",
-		Body:        []byte(data.Taskname),
+		ContentType:  "text/plain",
+		Body:         []byte(data.Taskname),
+		DeliveryMode: amqp.Transient,
 	})
-	log.Println("发布任务成功.")
+	log.Println("发布任务成功.", data.Taskname, data.Time, data.Job)
 	if err != nil {
 		return err
 	}

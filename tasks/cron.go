@@ -15,6 +15,7 @@ func StartCronJobs(locked bool) {
 	Cron = cron.New()
 
 	RegisterJobs()
+	TaskExcuter()
 
 	if !locked {
 		if !modules.LockerModule.Lock("master", time.Minute*2) {
@@ -27,13 +28,15 @@ func StartCronJobs(locked bool) {
 	Cron.AddFunc("@every 1m", ClifeMaster)
 
 	for _, item := range modules.TasksModule {
+		fmt.Println(item)
 		if item.Type == modules.TimeJob {
-			log.Println(item)
-			Cron.AddFunc(item.Time, func() { PublishTask(item) })
+			Cron.AddFunc(item.Time, func() {
+				PublishTask(item)
+			})
 		}
 	}
 
 	Cron.Start()
 
-	fmt.Println("Cron Jobs started success.")
+	log.Println("Cron Jobs started success.")
 }

@@ -3,5 +3,6 @@ package tasks
 import "dogego/modules"
 
 func RegisterJobs() {
-	modules.AddTimedJob("@every 10s", TimeTask)
+	modules.ClearTimedJob()
+	modules.AddTimedJob("@every 3m", TimeTask)
 }

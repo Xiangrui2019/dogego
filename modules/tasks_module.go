@@ -31,3 +31,7 @@ func AddTimedJob(time string, job TimeTask) {
 		Type:     TimeJob,
 	})
 }
+
+func ClearTimedJob() {
+	TasksModule = *new([]*Task)
+}
