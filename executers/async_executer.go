@@ -3,8 +3,8 @@ package executers
 import (
 	"dogego/global"
 	"dogego/modules"
-	"dogego/utils"
 	"encoding/json"
+	"errors"
 	"log"
 	"strings"
 	"time"
@@ -12,46 +12,29 @@ import (
 	"github.com/streadway/amqp"
 )
 
-func AsyncListenExecuter(ch *amqp.Channel, queue *amqp.Queue) error {
-	msgs, err := ch.Consume(
-		queue.Name,
-		"",
-		true,
-		false,
-		false,
-		false,
-		amqp.Table{},
+func AsyncExecuter(ch *amqp.Channel, queue *amqp.Queue) {
+	modules.RedisMQModule.Custome(
+		global.TimeTaskQueueKey(),
+		executeAsyncTask,
 	)
-
-	if err != nil {
-		return err
-	}
-
-	go func() {
-		for d := range msgs {
-			executeAsyncTask(&d)
-		}
-	}()
-
-	return nil
 }
 
-func executeAsyncTask(d *amqp.Delivery) {
+func executeAsyncTask(message string) error {
 	for _, item := range modules.TasksModule {
-		l := strings.Split(string(d.Body), "#$#")
-
+		l := strings.Split(message, "#$#")
 		if item.Taskname == l[0] {
 			var data interface{}
 
 			if !modules.LockerModule.Lock(item.Taskname, 0) {
-				return
+				return errors.New("Lock error.")
 			}
 
 			job := item.Job.(modules.AsyncTask)
 			err := json.Unmarshal([]byte(l[1]), &data)
 
 			if err != nil {
-				return
+				modules.LockerModule.Free(item.Taskname)
+				return err
 			}
 
 			from := time.Now().UnixNano()
@@ -67,14 +50,6 @@ func executeAsyncTask(d *amqp.Delivery) {
 			modules.LockerModule.Free(item.Taskname)
 		}
 	}
-}
 
-func AsyncExecuter() error {
-	ch, queue, err := utils.BuildQueueChannel(global.AsyncTaskQueueKey())
-
-	if err != nil {
-		return err
-	}
-
-	return AsyncListenExecuter(ch, queue)
+	return nil
 }

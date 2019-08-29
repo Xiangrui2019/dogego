@@ -3,46 +3,27 @@ package executers
 import (
 	"dogego/global"
 	"dogego/modules"
-	"dogego/utils"
+	"errors"
 	"log"
 	"time"
-
-	"github.com/streadway/amqp"
 )
 
-func TaskListenExecuter(ch *amqp.Channel, queue *amqp.Queue) error {
-	msgs, err := ch.Consume(
-		queue.Name,
-		"",
-		true,
-		false,
-		false,
-		false,
-		amqp.Table{},
+func TaskExcuter() {
+	modules.RedisMQModule.Custome(
+		global.AsyncTaskQueueKey(),
+		executeAsyncTask,
 	)
-
-	if err != nil {
-		return err
-	}
-
-	go func() {
-		for d := range msgs {
-			executeTask(&d)
-		}
-	}()
-
-	return nil
 }
 
-func executeTask(d *amqp.Delivery) {
+func executeTask(message string) error {
 	for _, item := range modules.TasksModule {
-		if item.Taskname == string(d.Body) {
-			if !modules.LockerModule.Lock(item.Taskname, 0) {
-				return
+		if item.Taskname == message {
+			if item.Type != modules.TimeJob {
+				return errors.New("Job type error")
 			}
 
-			if item.Type != modules.TimeJob {
-				return
+			if !modules.LockerModule.Lock(item.Taskname, 0) {
+				return errors.New("Lock error")
 			}
 
 			job := item.Job.(modules.TimeTask)
@@ -60,14 +41,6 @@ func executeTask(d *amqp.Delivery) {
 			modules.LockerModule.Free(item.Taskname)
 		}
 	}
-}
 
-func TaskExcuter() error {
-	ch, queue, err := utils.BuildQueueChannel(global.TimeTaskQueueKey())
-
-	if err != nil {
-		return err
-	}
-
-	return TaskListenExecuter(ch, queue)
+	return nil
 }
