@@ -8,10 +8,10 @@ import (
 	"time"
 )
 
-func TaskExcuter() {
+func TimeExecuter() {
 	modules.RedisMQModule.Custome(
-		global.AsyncTaskQueueKey(),
-		executeAsyncTask,
+		global.TimeTaskQueueKey(),
+		executeTask,
 	)
 }
 
@@ -19,11 +19,11 @@ func executeTask(message string) error {
 	for _, item := range modules.TasksModule {
 		if item.Taskname == message {
 			if item.Type != modules.TimeJob {
-				return errors.New("Job type error")
+				return errors.New("Job type error.")
 			}
 
 			if !modules.LockerModule.Lock(item.Taskname, 0) {
-				return errors.New("Lock error")
+				return errors.New("Lock error.")
 			}
 
 			job := item.Job.(modules.TimeTask)

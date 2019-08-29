@@ -8,13 +8,11 @@ import (
 	"log"
 	"strings"
 	"time"
-
-	"github.com/streadway/amqp"
 )
 
-func AsyncExecuter(ch *amqp.Channel, queue *amqp.Queue) {
+func AsyncExecuter() {
 	modules.RedisMQModule.Custome(
-		global.TimeTaskQueueKey(),
+		global.AsyncTaskQueueKey(),
 		executeAsyncTask,
 	)
 }
@@ -24,6 +22,10 @@ func executeAsyncTask(message string) error {
 		l := strings.Split(message, "#$#")
 		if item.Taskname == l[0] {
 			var data interface{}
+
+			if item.Type != modules.AsyncJob {
+				return errors.New("Job type error.")
+			}
 
 			if !modules.LockerModule.Lock(item.Taskname, 0) {
 				return errors.New("Lock error.")
