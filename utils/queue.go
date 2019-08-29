@@ -3,8 +3,6 @@ package utils
 import (
 	"dogego/modules"
 
-	"os"
-
 	"github.com/streadway/amqp"
 )
 
@@ -53,7 +51,7 @@ func BuildQueueChannel(queue_name string) (*amqp.Channel, *amqp.Queue, error) {
 
 func Publish(ch *amqp.Channel, queue *amqp.Queue, publishing amqp.Publishing) error {
 	err := ch.Publish(
-		os.Getenv("AMQP_EXCHANGE"),
+		"",
 		queue.Name,
 		false,
 		false,

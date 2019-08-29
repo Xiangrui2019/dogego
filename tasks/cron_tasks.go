@@ -1,6 +1,8 @@
 package tasks
 
-import "dogego/modules"
+import (
+	"dogego/modules"
+)
 
 func RegisterCronTasks() {
 	modules.ClearTimedJob()
