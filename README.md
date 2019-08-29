@@ -15,7 +15,7 @@
 4. [Go-Redis](https://github.com/go-redis/redis): Golang Redis客户端
 5. [godotenv](https://github.com/joho/godotenv): 开发环境下的环境变量工具，方便使用环境变量
 6. [Gin-Cors](https://github.com/gin-contrib/cors): Gin框架提供的跨域中间件
-7. [DogeGo Task](https://github.com/xiangrui2019/dogego_task) 自行实现了分布式定时任务
+7. [DogeGo Task](https://github.com/xiangrui2019/dogego_task) 自行实现了分布式定时任务(已经废除)
 8. 本项目使用Redis分布式Session存储登录信息, 默认支持分布式, 无需更换
 
 本项目已经预先实现了一些常用的代码方便参考和复用:
@@ -28,7 +28,7 @@
 5. 实现了```/api/v1/user/change_password```用户密码修改接口(需要登录后获取session)
 5. 实现了```/api/v1/user/update_profile```用户Profile更新接口(需要登录后获取session)
 5. 实现了```/api/v1/user/logout```用户登出接口(需要登录后获取session)
-6. 实现了```time```定时任务, 可以直接使用，每小时运行一次，作为参考.
+6. 实现了```time```定时任务, 可以直接使用，每小时运行一次，作为参考(废除).
 
 本项目已经预先创建了一系列文件夹划分出下列模块:
 
