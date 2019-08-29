@@ -39,3 +39,9 @@ func (mq *RedisMQ) Custome(queuename string, cb func(message string) error) erro
 
 	return nil
 }
+
+var RedisMQModule *RedisMQ
+
+func InitRedisMQModule() {
+	RedisMQModule = new(RedisMQ)
+}
