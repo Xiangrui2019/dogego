@@ -9,6 +9,8 @@ import (
 type RedisMQ struct {
 }
 
+var RedisMQModule *RedisMQ
+
 func (mq *RedisMQ) Publish(queuename string, message string) error {
 	err := cache.CacheClient.LPush(global.QueueNameKey(queuename), message).Err()
 
@@ -39,8 +41,6 @@ func (mq *RedisMQ) Custome(queuename string, cb func(message string) error) erro
 
 	return nil
 }
-
-var RedisMQModule *RedisMQ
 
 func InitRedisMQModule() {
 	RedisMQModule = new(RedisMQ)
