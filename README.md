@@ -17,6 +17,7 @@
 6. [Gin-Cors](https://github.com/gin-contrib/cors): Gin框架提供的跨域中间件
 7. [DogeGo Task](https://github.com/xiangrui2019/dogego_task) 自行实现了分布式定时任务(已经废除)
 8. 本项目使用Redis分布式Session存储登录信息, 默认支持分布式, 无需更换
+9. 参考Celery实现了分布式定时任务和异步任务
 
 本项目已经预先实现了一些常用的代码方便参考和复用:
 
