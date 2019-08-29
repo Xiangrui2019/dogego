@@ -6,24 +6,17 @@ import (
 	"log"
 	"reflect"
 	"runtime"
-
-	"github.com/streadway/amqp"
 )
 
 func RunAsyncTask(job modules.AsyncTask, data interface{}) error {
-	ch, queue, err := BuildQueueChannel(global.AsyncTaskQueueKey())
-
-	if err != nil {
-		return err
-	}
-
 	jobName := runtime.FuncForPC(reflect.ValueOf(job).Pointer()).Name()
 
-	err = Publish(ch, queue, amqp.Publishing{
-		ContentType:  "text/plain",
-		Body:         []byte(global.AsyncTaskData(jobName, data)),
-		DeliveryMode: amqp.Transient,
-	})
+	err := modules.RedisMQModule.Publish(
+		global.AsyncTaskQueueKey(),
+		global.AsyncTaskData(jobName, data),
+	)
+
+	log.Println("Async Task Commit Success: ", jobName)
 
 	if err != nil {
 		return err
@@ -33,19 +26,12 @@ func RunAsyncTask(job modules.AsyncTask, data interface{}) error {
 }
 
 func PublishTask(data *modules.Task) error {
-	ch, queue, err := BuildQueueChannel(global.TimeTaskQueueKey())
+	err := modules.RedisMQModule.Publish(
+		global.TimeTaskQueueKey(),
+		data.Taskname,
+	)
 
-	if err != nil {
-		return err
-	}
-
-	err = Publish(ch, queue, amqp.Publishing{
-		ContentType:  "text/plain",
-		Body:         []byte(data.Taskname),
-		DeliveryMode: amqp.Transient,
-	})
-
-	log.Println("Task Publish Success: ", data.Taskname)
+	log.Println("Timed Task Commit Success: ", data.Taskname)
 
 	if err != nil {
 		return err
