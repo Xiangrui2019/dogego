@@ -1,9 +1,11 @@
 package global
 
+import "os"
+
 func TimeTaskQueueKey() string {
-	return "timetasksqueue"
+	return os.Getenv("TIME_TASK_QUEUE")
 }
 
 func AsyncTaskQueueKey() string {
-	return "asynctaskqueue"
+	return os.Getenv("ASYNC_TASK_QUEUE")
 }
