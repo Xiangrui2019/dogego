@@ -26,8 +26,6 @@ func executeTask(message string) error {
 				}
 			}()
 
-			panic(1)
-
 			if item.Type != modules.TimeJob {
 				return errors.New("Job type error.")
 			}
