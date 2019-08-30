@@ -23,6 +23,14 @@ func executeAsyncTask(message string) error {
 		if item.Taskname == l[0] {
 			var data interface{}
 
+			defer func() {
+				err := recover()
+				if err != nil {
+					modules.LockerModule.Free(item.Taskname)
+					panic(err)
+				}
+			}()
+
 			if item.Type != modules.AsyncJob {
 				return errors.New("Job type error.")
 			}

@@ -18,6 +18,16 @@ func TimeExecuter() {
 func executeTask(message string) error {
 	for _, item := range modules.TasksModule {
 		if item.Taskname == message {
+			defer func() {
+				err := recover()
+				if err != nil {
+					modules.LockerModule.Free(item.Taskname)
+					panic(err)
+				}
+			}()
+
+			panic(1)
+
 			if item.Type != modules.TimeJob {
 				return errors.New("Job type error.")
 			}
