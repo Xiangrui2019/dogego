@@ -9,7 +9,7 @@ import (
 	"runtime"
 )
 
-func RunAsyncTask(job modules.AsyncTask, data interface{}) error {
+func RunAsyncTask(job modules.AsyncTask, data string) error {
 	jobName := runtime.FuncForPC(reflect.ValueOf(job).Pointer()).Name()
 
 	err := modules.RedisMQModule.Publish(
