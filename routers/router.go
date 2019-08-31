@@ -23,8 +23,10 @@ func NewRouter() *gin.Engine {
 		v1.POST("/user/login", api.UserLogin)
 		v1.POST("/task/test", api.TestAsyncTask)
 
-		authed := v1.Use(middlewares.AuthRequired())
+		authed := v1.Group("")
 		{
+			authed.Use(middlewares.AuthRequired())
+
 			authed.PUT("/user/change_password", api.UserChangePassword)
 			authed.PUT("/user/update_profile", api.UserUpdateProfile)
 			authed.GET("/user/me", api.UserMe)
