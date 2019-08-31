@@ -1,6 +1,7 @@
 package modules
 
 import (
+	"dogego/models"
 	"reflect"
 	"runtime"
 )
@@ -17,12 +18,8 @@ type Task struct {
 	Job      interface{}
 }
 
-type TaskData struct {
-	Data interface{}
-}
-
 type TimeTask func() error
-type AsyncTask func(data TaskData) error
+type AsyncTask func(data models.TaskData) error
 
 var TasksModule []*Task
 

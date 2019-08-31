@@ -2,6 +2,7 @@ package utils
 
 import (
 	"dogego/global"
+	"dogego/models"
 	"dogego/modules"
 	"log"
 	"reflect"
@@ -13,7 +14,7 @@ func RunAsyncTask(job modules.AsyncTask, data interface{}) error {
 
 	err := modules.RedisMQModule.Publish(
 		global.AsyncTaskQueueKey(),
-		global.AsyncTaskData(jobName, &modules.TaskData{
+		global.AsyncTaskData(jobName, models.TaskData{
 			Data: data,
 		}),
 	)
