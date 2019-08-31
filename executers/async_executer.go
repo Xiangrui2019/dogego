@@ -21,7 +21,7 @@ func executeAsyncTask(message string) error {
 	for _, item := range modules.TasksModule {
 		l := strings.Split(message, "#$#")
 		if item.Taskname == l[0] {
-			var data interface{}
+			var data modules.TaskData
 
 			defer func() {
 				err := recover()

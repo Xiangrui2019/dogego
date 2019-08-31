@@ -17,8 +17,12 @@ type Task struct {
 	Job      interface{}
 }
 
+type TaskData struct {
+	Data interface{}
+}
+
 type TimeTask func() error
-type AsyncTask func(data interface{}) error
+type AsyncTask func(data TaskData) error
 
 var TasksModule []*Task
 

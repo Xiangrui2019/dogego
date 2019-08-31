@@ -13,7 +13,9 @@ func RunAsyncTask(job modules.AsyncTask, data interface{}) error {
 
 	err := modules.RedisMQModule.Publish(
 		global.AsyncTaskQueueKey(),
-		global.AsyncTaskData(jobName, data),
+		global.AsyncTaskData(jobName, &modules.TaskData{
+			Data: data,
+		}),
 	)
 
 	log.Println("Async Task Commit Success: ", jobName)
