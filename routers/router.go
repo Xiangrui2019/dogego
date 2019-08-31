@@ -25,6 +25,7 @@ func NewRouter() *gin.Engine {
 
 		authed := v1.Group("")
 		{
+			// 使用登录验证
 			authed.Use(middlewares.AuthRequired())
 
 			authed.PUT("/user/change_password", api.UserChangePassword)
