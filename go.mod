@@ -1,6 +1,6 @@
 module dogego
 
-go 1.13
+go 1.12
 
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v2.0.2+incompatible
