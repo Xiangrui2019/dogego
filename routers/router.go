@@ -25,15 +25,15 @@ func NewRouter() *gin.Engine {
 		v1.POST("/task/test", api.TestAsyncTask)
 
 		// 需要进行登录验证
-		authed := v1.Group("")
+		userauthd := v1.Group("")
 		{
 			// 使用登录验证中间件
-			authed.Use(middlewares.AuthRequired(auth.User))
+			userauthd.Use(middlewares.AuthRequired(auth.User))
 
-			authed.PUT("/user/change_password", api.UserChangePassword)
-			authed.PUT("/user/update_profile", api.UserUpdateProfile)
-			authed.GET("/user/me", api.UserMe)
-			authed.POST("/usr/logout", api.UserLogout)
+			userauthd.PUT("/user/change_password", api.UserChangePassword)
+			userauthd.PUT("/user/update_profile", api.UserUpdateProfile)
+			userauthd.GET("/user/me", api.UserMe)
+			userauthd.POST("/usr/logout", api.UserLogout)
 		}
 	}
 
