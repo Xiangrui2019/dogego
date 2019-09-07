@@ -2,6 +2,7 @@ package routers
 
 import (
 	"dogego/api"
+	"dogego/auth"
 	"dogego/middlewares"
 	"os"
 
@@ -22,12 +23,12 @@ func NewRouter() *gin.Engine {
 		v1.POST("/user/register", api.UserRegister)
 		v1.POST("/user/login", api.UserLogin)
 		v1.POST("/task/test", api.TestAsyncTask)
-		
+
 		// 需要进行登录验证
 		authed := v1.Group("")
 		{
 			// 使用登录验证中间件
-			authed.Use(middlewares.AuthRequired())
+			authed.Use(middlewares.AuthRequired(auth.User))
 
 			authed.PUT("/user/change_password", api.UserChangePassword)
 			authed.PUT("/user/update_profile", api.UserUpdateProfile)

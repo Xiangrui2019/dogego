@@ -23,12 +23,14 @@ func CurrentUser() gin.HandlerFunc {
 	}
 }
 
-func AuthRequired() gin.HandlerFunc {
+func AuthRequired(role string) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		if user, _ := context.Get("user"); user != nil {
-			if _, ok := user.(*models.User); ok {
-				context.Next()
-				return
+			if v, ok := user.(*models.User); ok {
+				if v.Role == role {
+					context.Next()
+					return
+				}
 			}
 		}
 
