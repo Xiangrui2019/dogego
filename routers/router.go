@@ -40,9 +40,9 @@ func NewRouter() *gin.Engine {
 		adminauthed := v1.Group("")
 		{
 			// 使用登录验证中间件
-			userauthed.Use(middlewares.AuthRequired(auth.Admin))
+			adminauthed.Use(middlewares.AuthRequired(auth.Admin))
 
-			adminauthed.GET("/authadmin/", nil)
+			adminauthed.GET("/auth/admintest", api.Test)
 		}
 	}
 

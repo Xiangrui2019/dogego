@@ -1,7 +1,11 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"dogego/utils"
+
+	"github.com/gin-gonic/gin"
+)
 
 func Test(context *gin.Context) {
-	context.JSON(200, "dffd")
+	context.JSON(200, utils.CurrentUser(context))
 }
