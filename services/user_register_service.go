@@ -1,6 +1,7 @@
 package services
 
 import (
+	"dogego/auth"
 	"dogego/models"
 	"dogego/serializer"
 	"net/http"
@@ -49,6 +50,7 @@ func (service *UserRegisterService) Register() (models.User, *serializer.Respons
 		Bio:         "这个人很懒, 什么都没写....",
 		Status:      models.Active,
 		Avatar:      "",
+		Role:        auth.User,
 	}
 
 	if err := service.Valid(); err != nil {
