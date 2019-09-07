@@ -1,4 +1,4 @@
-![DogeGo](https://probe.aiursoft.com/Download/Open/%E5%9B%BE%E5%BA%8A/icon.JPG)
+![DogeGoIcon](https://probe.aiursoft.com/Download/Open/%E5%9B%BE%E5%BA%8A/icon.JPG)
 
 # DogeGo
 
