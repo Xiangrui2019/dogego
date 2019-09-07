@@ -3,7 +3,6 @@
 每个想混的删掉下面你的名字提PR就能混:
 
 @日川冈坂
-@Mezzo
 
 
 使用DogeGo开发分布式WebAPI: 用最简单的架构, 实现支持分布式的够用的框架, 服务大量的用户.
@@ -15,8 +14,8 @@
 
 ### 特色
 本项目整合了开发API的基础类库:
-1. [Gin](https://github.com/gin-gonic/gin): 轻量级Web框架，自称路由速度是golang最快的 
-2. [GORM](http://gorm.io/docs/index.html): ORM工具。本项目需要配合Mysql使用 
+1. [Gin](https://github.com/gin-gonic/gin): 轻量级Web框架，自称路由速度是golang最快的
+2. [GORM](http://gorm.io/docs/index.html): ORM工具。本项目需要配合Mysql使用
 3. [Gin-Session](https://github.com/gin-contrib/sessions): Gin框架提供的Session操作工具
 4. [Go-Redis](https://github.com/go-redis/redis): Golang Redis客户端
 5. [godotenv](https://github.com/joho/godotenv): 开发环境下的环境变量工具，方便使用环境变量
