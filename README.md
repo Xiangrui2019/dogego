@@ -1,3 +1,5 @@
+![DogeGo](https://probe.aiursoft.com/Download/Open/%E5%9B%BE%E5%BA%8A/icon.JPG)
+
 # DogeGo
 
 使用DogeGo开发分布式WebAPI: 用最简单的架构, 实现支持分布式的够用的框架, 服务大量的用户.
