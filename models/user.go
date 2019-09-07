@@ -12,6 +12,7 @@ type User struct {
 	NickName    string
 	Bio         string
 	Status      string
+	Role        string
 	Avatar      string
 }
 

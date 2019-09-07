@@ -1,7 +1,7 @@
 package auth
 
 const (
-	User = iota
-	Admin
-	Super
+	User  string = "user"
+	Admin string = "admin"
+	Super string = "super"
 )
