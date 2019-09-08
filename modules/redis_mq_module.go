@@ -23,6 +23,12 @@ func (mq *RedisMQ) Publish(queuename string, message string) error {
 
 func (mq *RedisMQ) Custome(queuename string, cb func(message string) error) error {
 	go func() {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Println(err)
+			}
+		}()
+
 		for {
 			message, err := cache.CacheClient.BRPop(0,
 				global.QueueNameKey(queuename)).Result()

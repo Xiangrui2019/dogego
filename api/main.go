@@ -17,6 +17,7 @@ func Ping(context *gin.Context) {
 			Message: "HealthCheck出错",
 			Data:    err,
 		})
+		return
 	}
 
 	context.JSON(http.StatusOK, &serializer.Response{
