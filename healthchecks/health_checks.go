@@ -1,0 +1,4 @@
+package healthchecks
+
+func RegisterHealthChecks() {
+}

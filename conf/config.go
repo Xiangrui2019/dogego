@@ -3,6 +3,7 @@ package conf
 import (
 	"dogego/cache"
 	"dogego/executers"
+	"dogego/healthchecks"
 	"dogego/models"
 	"dogego/modules"
 	"dogego/tasks"
@@ -20,4 +21,5 @@ func init() {
 	tasks.StartCronJobs(false)
 	executers.TimeExecuter()
 	executers.AsyncExecuter()
+	healthchecks.RegisterHealthChecks()
 }
