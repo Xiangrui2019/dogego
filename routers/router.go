@@ -33,7 +33,7 @@ func NewRouter() *gin.Engine {
 			userauthed.PUT("/user/change_password", api.UserChangePassword)
 			userauthed.PUT("/user/update_profile", api.UserUpdateProfile)
 			userauthed.GET("/user/me", api.UserMe)
-			userauthed.POST("/usr/logout", api.UserLogout)
+			userauthed.POST("/user/logout", api.UserLogout)
 		}
 
 		// 需要进行登录验证(auth.Admin)
