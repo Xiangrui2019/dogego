@@ -1,13 +1,34 @@
 package modules
 
 type HealthCheckFunc func() error
+type HealthList []HealthCheckFunc
 
-var HealthChecksModule []*HealthCheckFunc
+type HealthChecks struct {
+}
 
-func AddHealthCheck(checkjob HealthCheckFunc) {
-	HealthChecksModule = append(HealthChecksModule, &checkjob)
+var HealthCheckJobList HealthList
+
+var HealthChecksModule *HealthChecks
+
+func (hc *HealthChecks) AddHealthCheck(checkjob HealthCheckFunc) {
+	HealthCheckJobList = append(HealthCheckJobList, checkjob)
+}
+
+func (hc *HealthChecks) Check() []string {
+	errlist := make([]string, 0)
+
+	for _, job := range HealthCheckJobList {
+		err := job()
+
+		if err != nil {
+			errlist = append(errlist, err.Error())
+		}
+	}
+
+	return errlist
 }
 
 func InitHealthChecksModule() {
-	HealthChecksModule = *new([]*HealthCheckFunc)
+	HealthCheckJobList = *new(HealthList)
+	HealthChecksModule = new(HealthChecks)
 }
