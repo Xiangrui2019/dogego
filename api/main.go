@@ -14,7 +14,7 @@ func Ping(context *gin.Context) {
 	if len(err) != 0 {
 		context.JSON(http.StatusInternalServerError, &serializer.Response{
 			Code:    http.StatusInternalServerError,
-			Message: "健康检查出错",
+			Message: "HealthCheck出错",
 			Data:    err,
 		})
 	}
