@@ -23,7 +23,7 @@ func (protocol *HttpProtocol) Start(addr string) error {
 		Handler: protocol.Router,
 	}
 
-	log.Printf("Server started on %s", addr)
+	log.Printf("HTTP Server started on %s", addr)
 	err := httpServer.ListenAndServe()
 
 	if err != nil {
