@@ -46,6 +46,10 @@ func NewRouter() *gin.Engine {
 		}
 
 		// 需要进行登录验证(auth.All)
+		authed := v1.Group("")
+		{
+			authed.Use(middlewares.AuthRequired(auth.All))
+		}
 	}
 
 	return router
