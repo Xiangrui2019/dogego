@@ -44,6 +44,8 @@ func NewRouter() *gin.Engine {
 
 			adminauthed.GET("/auth/admintest", api.Test)
 		}
+
+		// 需要进行登录验证(auth.All)
 	}
 
 	return router
