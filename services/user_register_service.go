@@ -50,7 +50,7 @@ func (service *UserRegisterService) Register() (models.User, *serializer.Respons
 		Bio:         "这个人很懒, 什么都没写....",
 		Status:      models.Active,
 		Avatar:      "",
-		Role:        auth.User,
+		Role:        auth.User[0],
 	}
 
 	if err := service.Valid(); err != nil {
