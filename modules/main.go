@@ -3,7 +3,7 @@ package modules
 func InitAllModules() {
 	//InitAliyunOSSModule()
 	//InitWebSocketModule()
-	InitSentryClient()
+	//InitSentryClient()
 	InitHealthChecksModule()
 	InitLockerModule()
 	InitRedisMQModule()
