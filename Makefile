@@ -11,7 +11,7 @@ run: docker
 docker: deps
 	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 	chmod +x ./main
-	sudo docker build -t go-shop-pay .
+	sudo docker build -t dogego .
 
 clean:
 	rm -rf vendor/
