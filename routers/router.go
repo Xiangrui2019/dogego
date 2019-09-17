@@ -30,11 +30,6 @@ func NewRouter() *gin.Engine {
 		{
 			// 使用登录验证中间件
 			userauthed.Use(middlewares.AuthRequired(auth.User))
-
-			userauthed.PUT("/user/change_password", api.UserChangePassword)
-			userauthed.PUT("/user/update_profile", api.UserUpdateProfile)
-			userauthed.GET("/user/me", api.UserMe)
-			userauthed.POST("/user/logout", api.UserLogout)
 		}
 
 		// 需要进行登录验证(auth.Admin)
@@ -42,14 +37,18 @@ func NewRouter() *gin.Engine {
 		{
 			// 使用登录验证中间件
 			adminauthed.Use(middlewares.AuthRequired(auth.Admin))
-
-			adminauthed.GET("/auth/admintest", api.Test)
 		}
 
 		// 需要进行登录验证(auth.All)
 		authed := v1.Group("")
 		{
+			// 使用登录验证中间件
 			authed.Use(middlewares.AuthRequired(auth.All))
+
+			authed.PUT("/user/change_password", api.UserChangePassword)
+			authed.PUT("/user/update_profile", api.UserUpdateProfile)
+			authed.GET("/user/me", api.UserMe)
+			authed.POST("/user/logout", api.UserLogout)
 		}
 	}
 
