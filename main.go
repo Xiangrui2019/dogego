@@ -12,6 +12,7 @@ import (
 func main() {
 	router := routers.NewRouter()
 	httpServer := http.NewHttpProtocol(router)
+	ch := make(chan bool, 1)
 
 	go func() {
 		err := httpServer.Start(os.Getenv("ADDR_HTTP"))
@@ -19,7 +20,13 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		ch <- true
 	}()
+
+	if os.Getenv("ENABLE_JRPC") == "disable" {
+		<-ch
+	}
 
 	if os.Getenv("ENABLE_JRPC") == "enable" {
 		http2Server := http2.NewHttp2Protocol(router)
