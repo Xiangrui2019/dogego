@@ -39,7 +39,8 @@ func AuthRequired(role []string) gin.HandlerFunc {
 		context.JSON(http.StatusUnauthorized, serializer.Response{
 			Code:    http.StatusUnauthorized,
 			Message: "您还没有登录或没有权限.",
-		})
+		}.Result())
+
 		context.Abort()
 	}
 }

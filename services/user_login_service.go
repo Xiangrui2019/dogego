@@ -15,17 +15,17 @@ func (service *UserLoginService) Login() (models.User, *serializer.Response) {
 	var user models.User
 
 	if err := models.DB.Where("phone_number = ?", service.PhoneNumber).First(&user).Error; err != nil {
-		return user, &serializer.Response{
+		return user, serializer.Response{
 			Code:    http.StatusBadRequest,
 			Message: "账号或密码错误.",
-		}
+		}.Result()
 	}
 
 	if user.CheckPassword(service.Password) == false {
-		return user, &serializer.Response{
+		return user, serializer.Response{
 			Code:    http.StatusBadRequest,
 			Message: "账号或密码错误.",
-		}
+		}.Result()
 	}
 
 	return user, nil

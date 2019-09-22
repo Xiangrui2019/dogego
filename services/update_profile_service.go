@@ -30,15 +30,15 @@ func (service *UpdateProfileService) Update(user *models.User) *serializer.Respo
 	user.Avatar = service.Avatar
 
 	if err := models.UpdateUserProfile(user); err != nil {
-		return &serializer.Response{
+		return serializer.Response{
 			Code:    http.StatusInternalServerError,
 			Message: "更新信息出错.",
 			Error:   err.Error(),
-		}
+		}.Result()
 	}
 
-	return &serializer.Response{
+	return serializer.Response{
 		Code:    http.StatusOK,
 		Message: "更新用户信息成功.",
-	}
+	}.Result()
 }

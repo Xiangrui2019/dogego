@@ -14,17 +14,17 @@ type ChangePasswordService struct {
 
 func (service *ChangePasswordService) Valid(user *models.User) *serializer.Response {
 	if err := user.CheckPassword(service.OldPassword); err != true {
-		return &serializer.Response{
+		return serializer.Response{
 			Code:    http.StatusBadRequest,
 			Message: "旧密码输入有误",
-		}
+		}.Result()
 	}
 
 	if service.PasswordConfirm != service.Password {
-		return &serializer.Response{
+		return serializer.Response{
 			Code:    http.StatusBadRequest,
 			Message: "两次输入的密码不相同",
-		}
+		}.Result()
 	}
 
 	return nil
@@ -36,23 +36,23 @@ func (service *ChangePasswordService) Change(user *models.User) *serializer.Resp
 	}
 
 	if err := user.SetPassword(service.Password); err != nil {
-		return &serializer.Response{
+		return serializer.Response{
 			Code:    http.StatusInternalServerError,
 			Message: "加密密码失败",
 			Error:   err.Error(),
-		}
+		}.Result()
 	}
 
 	if err := models.DB.Save(user).Error; err != nil {
-		return &serializer.Response{
+		return serializer.Response{
 			Code:    http.StatusInternalServerError,
 			Message: "保存密码失败",
 			Error:   err.Error(),
-		}
+		}.Result()
 	}
 
-	return &serializer.Response{
-		Code: http.StatusOK,
+	return serializer.Response{
+		Code:    http.StatusOK,
 		Message: "密码更新成功, 请重新登录.",
-	}
+	}.Result()
 }

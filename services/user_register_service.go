@@ -16,28 +16,28 @@ type UserRegisterService struct {
 
 func (service *UserRegisterService) Valid() *serializer.Response {
 	if service.PasswordConfirm != service.Password {
-		return &serializer.Response{
+		return serializer.Response{
 			Code:    http.StatusBadRequest,
 			Message: "两次输入的密码不相同",
-		}
+		}.Result()
 	}
 
 	count := 0
 	models.DB.Model(&models.User{}).Where("nick_name = ?", service.NickName).Count(&count)
 	if count > 0 {
-		return &serializer.Response{
+		return serializer.Response{
 			Code:    http.StatusBadRequest,
 			Message: "昵称被占用",
-		}
+		}.Result()
 	}
 
 	count = 0
 	models.DB.Model(&models.User{}).Where("phone_number = ?", service.PhoneNumber).Count(&count)
 	if count > 0 {
-		return &serializer.Response{
+		return serializer.Response{
 			Code:    http.StatusBadRequest,
 			Message: "电话号码已经注册",
-		}
+		}.Result()
 	}
 
 	return nil
@@ -58,19 +58,19 @@ func (service *UserRegisterService) Register() (models.User, *serializer.Respons
 	}
 
 	if err := user.SetPassword(service.Password); err != nil {
-		return user, &serializer.Response{
+		return user, serializer.Response{
 			Code:    http.StatusInternalServerError,
 			Message: "设置密码时出错.",
 			Error:   err.Error(),
-		}
+		}.Result()
 	}
 
 	if err := models.RegisterUser(&user); err != nil {
-		return user, &serializer.Response{
+		return user, serializer.Response{
 			Code:    http.StatusInternalServerError,
 			Message: "注册用户时出错.",
 			Error:   err.Error(),
-		}
+		}.Result()
 	}
 
 	return user, nil

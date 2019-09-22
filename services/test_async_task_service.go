@@ -14,11 +14,11 @@ func (service *TestAsyncTaskService) Test() *serializer.Response {
 	err := utils.RunAsyncTask(tasks.TimeTask1, "TH")
 
 	if err != nil {
-		return utils.BuildErrorResponse(err)
+		return utils.BuildErrorResponse(err).Result()
 	}
 
-	return &serializer.Response{
+	return serializer.Response{
 		Code:    http.StatusOK,
 		Message: "Successfly send task async task.",
-	}
+	}.Result()
 }

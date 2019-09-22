@@ -17,10 +17,10 @@ func UserRegister(context *gin.Context) {
 		if user, err := service.Register(); err != nil {
 			context.JSON(err.Code, err)
 		} else {
-			context.JSON(http.StatusOK, serializer.BuildUserResponse(&user))
+			context.JSON(http.StatusOK, serializer.BuildUserResponse(&user).Result())
 		}
 	} else {
-		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
+		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err).Result())
 	}
 }
 
@@ -36,17 +36,17 @@ func UserLogin(context *gin.Context) {
 			session.Set("user_id", user.ID)
 			session.Save()
 
-			context.JSON(http.StatusOK, serializer.BuildUserResponse(&user))
+			context.JSON(http.StatusOK, serializer.BuildUserResponse(&user).Result())
 		}
 	} else {
-		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
+		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err).Result())
 	}
 }
 
 func UserMe(context *gin.Context) {
 	user := utils.CurrentUser(context)
 
-	context.JSON(http.StatusOK, serializer.BuildUserResponse(user))
+	context.JSON(http.StatusOK, serializer.BuildUserResponse(user).Result())
 }
 
 func UserUpdateProfile(context *gin.Context) {
@@ -58,7 +58,7 @@ func UserUpdateProfile(context *gin.Context) {
 
 		context.JSON(res.Code, res)
 	} else {
-		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
+		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err).Result())
 	}
 }
 
@@ -73,7 +73,7 @@ func UserChangePassword(context *gin.Context) {
 		session.Save()
 		context.JSON(res.Code, res)
 	} else {
-		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err))
+		context.JSON(http.StatusBadRequest, utils.BuildErrorResponse(err).Result())
 	}
 }
 
@@ -81,8 +81,8 @@ func UserLogout(context *gin.Context) {
 	session := sessions.Default(context)
 	session.Clear()
 	session.Save()
-	context.JSON(http.StatusOK, &serializer.Response{
+	context.JSON(http.StatusOK, serializer.Response{
 		Code:    http.StatusOK,
 		Message: "登出成功.",
-	})
+	}.Result())
 }
