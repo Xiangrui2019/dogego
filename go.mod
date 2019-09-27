@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/aliyun/aliyun-oss-go-sdk v2.0.2+incompatible
 	github.com/baiyubin/aliyun-sts-go-sdk v0.0.0-20180326062324-cfa1a18b161f // indirect
+	github.com/doge-soft/doge_server_http v0.0.0-20190927124634-693e5408a0dc
 	github.com/getsentry/raven-go v0.2.0
 	github.com/gin-contrib/cors v1.3.0
 	github.com/gin-contrib/sentry v0.0.0-20190914002318-fb8d26af959e

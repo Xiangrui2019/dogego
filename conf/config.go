@@ -6,6 +6,7 @@ import (
 	"dogego/healthchecks"
 	"dogego/models"
 	"dogego/modules"
+	"dogego/protocol"
 	"dogego/tasks"
 	"os"
 
@@ -22,4 +23,5 @@ func init() {
 	executers.TimeExecuter()
 	executers.AsyncExecuter()
 	healthchecks.RegisterHealthChecks()
+	protocol.RegisterServers()
 }
